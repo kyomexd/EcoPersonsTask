@@ -20,35 +20,11 @@ public class PersonAnalyzer {
     }
 
     public static boolean isEco(int maxValue, Person person) {
-        List<Integer> comparableData = getComparableValues(person);
-        boolean isEco = true;
-        int firstDataValue;
-        int secondDataValue;
-        for (int i = 0; i < comparableData.size(); i++) {
-            firstDataValue = comparableData.get(i);
-            if (firstDataValue > maxValue) {
-                isEco = false;
-                break;
-            }
-            if (i == 1 || i == 3) {
-                i++;
-                secondDataValue = comparableData.get(i);
-                if (firstDataValue + secondDataValue > maxValue) {
-                    isEco = false;
-                    break;
-                }
-            }
+        if (person.getWaterCount() < maxValue 
+                && person.getGasCount1() + person.getGasCount2() < maxValue 
+                && person.getElectroCount1() + person.getElectroCount2() < maxValue) {
+            return true;
         }
-        return isEco;
-    }
-
-    private static List<Integer> getComparableValues(Person person) {
-        List<Integer> comparableValues = new ArrayList<>();
-        comparableValues.add(person.getWaterCount());
-        comparableValues.add(person.getGasCount1());
-        comparableValues.add(person.getGasCount2());
-        comparableValues.add(person.getElectroCount1());
-        comparableValues.add(person.getElectroCount2());
-        return comparableValues;
+        return false;
     }
 }
